@@ -16,6 +16,21 @@ class LoginForm extends Component {
     this.setState({password: event.target.value})
   }
 
+  onSubmitForm = async event => {
+    event.preventDefault()
+    const {username, password} = this.state
+    const userDetails = {username, password}
+
+    const url = 'https://apis.ccbp.in/login'
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userDetails),
+    }
+    const response = await fetch(url, options)
+    const data = await response.json()
+    console.log(data)
+  }
+
   renderPasswordField = () => {
     const {password} = this.state
     return (
@@ -65,7 +80,7 @@ class LoginForm extends Component {
           className="login-image"
           alt="website login"
         />
-        <form className="form-container">
+        <form onSubmit={this.onSubmitForm} className="form-container">
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
             className="login-website-logo-desktop-image"
