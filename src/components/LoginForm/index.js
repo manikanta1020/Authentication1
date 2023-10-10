@@ -8,6 +8,12 @@ class LoginForm extends Component {
     password: '',
   }
 
+  onLoginSuccess = () => {
+    const {history} = this.props
+
+    history.push('/')
+  }
+
   onChangeUsername = event => {
     this.setState({username: event.target.value})
   }
@@ -29,6 +35,10 @@ class LoginForm extends Component {
     const response = await fetch(url, options)
     const data = await response.json()
     console.log(data)
+
+    if (response.ok === true) {
+      this.onLoginSuccess()
+    }
   }
 
   renderPasswordField = () => {
